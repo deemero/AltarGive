@@ -31,11 +31,7 @@ export default function Home() {
           placeholder="Do fundraise now"
           className="bg-white px-4 py-2 rounded-full border border-gray-300 w-full max-w-sm shadow-sm focus:outline-none"
         />
-       <Link href="/admin/dashboard">
-  <button className="ml-4 bg-red-600 text-white px-6 py-2 rounded-full shadow hover:bg-red-700 transition">
-    Admin Page
-  </button>
-</Link>
+   
 
       </div>
 
