@@ -24,6 +24,15 @@ export default function Home() {
 
   return (
     <div className="p-6 space-y-12">
+      {/* ADMIN BUTTON */}
+      <div className="flex justify-end mb-4">
+        <Link href="/admin/dashboard">
+          <button className="bg-red-600 text-white px-4 py-2 rounded-xl hover:bg-red-700 transition">
+            Admin
+          </button>
+        </Link>
+      </div>
+
       {/* HERO SECTION */}
       <section className="text-center py-16 bg-gradient-to-br from-blue-600 to-indigo-700 text-white rounded-2xl shadow-xl">
         <h1 className="text-4xl font-bold mb-4">Give with Purpose</h1>
@@ -41,11 +50,18 @@ export default function Home() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {campaigns.map((c) => (
             <div key={c.id} className="bg-white dark:bg-gray-900 rounded-2xl shadow p-4">
-              <img
-                src={c.image_url}
-                alt={c.title}
-                className="rounded-xl h-40 w-full object-cover mb-4"
-              />
+       {c.image_url ? (
+  <img
+    src={c.image_url}
+    alt={c.title}
+    className="rounded-xl h-40 w-full object-cover mb-4"
+  />
+) : (
+  <div className="h-40 w-full bg-gray-300 dark:bg-gray-800 flex items-center justify-center rounded-xl mb-4 text-gray-500 text-sm">
+    No Image
+  </div>
+)}
+
               <h3 className="text-lg font-semibold">{c.title}</h3>
               <p className="text-sm text-gray-500">{c.description?.slice(0, 80)}...</p>
               <div className="my-2 text-sm">
