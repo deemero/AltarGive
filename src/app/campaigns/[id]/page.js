@@ -10,6 +10,7 @@ export default function CampaignDetails() {
   const [amount, setAmount] = useState('')
   const [paymentMethod, setPaymentMethod] = useState('')
   const [donorName, setDonorName] = useState('')
+  const [proofFile, setProofFile] = useState(null)
   const [successMsg, setSuccessMsg] = useState('')
   const [showForm, setShowForm] = useState(false)
 
@@ -31,23 +32,50 @@ export default function CampaignDetails() {
   const handleDonate = async (e) => {
     e.preventDefault()
 
+    let proof_url = null
+
+    // ✅ Upload gambar jika ada
+    if (proofFile) {
+      const fileExt = proofFile.name.split('.').pop()
+      const fileName = `${Date.now()}.${fileExt}`
+      const filePath = `${campaign.id}/${fileName}`
+
+      const { error: uploadError } = await supabase.storage
+        .from('proofs')
+        .upload(filePath, proofFile)
+
+      if (uploadError) {
+        console.error('Upload error:', uploadError)
+        return
+      }
+
+      const { data: publicUrlData } = supabase.storage
+        .from('proofs')
+        .getPublicUrl(filePath)
+
+      proof_url = publicUrlData.publicUrl
+    }
+
+    // ✅ Simpan donation
     const { error } = await supabase.from('donations').insert([
       {
         donor_name: donorName || null,
-        user_id: null, // biar kosong untuk anonymous
+        user_id: null,
         campaign_id: campaign.id,
         amount: parseFloat(amount),
         payment_method: paymentMethod,
+        proof_url,
       },
     ])
 
     if (error) {
-      console.error('Error saving donation:', error)
+      console.error('Donation error:', error)
     } else {
       setSuccessMsg('✅ Thank you! Your donation has been recorded.')
       setAmount('')
       setPaymentMethod('')
       setDonorName('')
+      setProofFile(null)
     }
   }
 
@@ -79,7 +107,7 @@ export default function CampaignDetails() {
       </button>
 
       {showForm && (
-        <form onSubmit={handleDonate} className="space-y-4 mt-6">
+        <form onSubmit={handleDonate} className="space-y-4 mt-6" encType="multipart/form-data">
           <input
             type="text"
             placeholder="Your name (optional)"
@@ -106,6 +134,12 @@ export default function CampaignDetails() {
             <option value="FPX">FPX</option>
             <option value="Bank Transfer">Bank Transfer</option>
           </select>
+          <input
+            type="file"
+            accept="image/*"
+            className="w-full p-3 rounded-xl border"
+            onChange={(e) => setProofFile(e.target.files[0])}
+          />
           <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded-xl hover:bg-green-700">
             Submit Donation
           </button>
