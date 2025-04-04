@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --background: #f8f8ff; /* Ghost White (putih cozy) */
   --foreground: #171717;
 }
 
@@ -12,12 +12,15 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* Komen atau padam terus media query dark mode supaya sentiasa putih cozy */
+/*
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
 }
+*/
 
 body {
   background: var(--background);

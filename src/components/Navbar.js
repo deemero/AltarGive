@@ -1,101 +1,103 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import Link from 'next/link'
+import { useState } from 'react';
+import Link from 'next/link';
 
 export default function Navbar() {
-  const [menuOpen, setMenuOpen] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => {
-    setMenuOpen(!menuOpen)  // Toggle the menu state
-  }
+    setMenuOpen(!menuOpen);
+  };
 
   return (
-    <header className="bg-white shadow-md w-full px-4 py-2">
+    <header className="bg-white shadow-sm w-full px-4 py-3">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo */}
-        <div className="flex items-center space-x-2">
-          <div className="bg-purple-600 p-2 rounded-full text-white font-bold text-sm">💖</div>
-          <span className="font-semibold text-lg text-gray-800">AltarGive</span>
+        <div className="font-bold text-xl text-blue-600">
+          AltarGive
         </div>
 
         {/* Navigation for Desktop */}
-        <nav className="hidden md:flex space-x-6 text-sm text-gray-600">
-          <Link href="/admin/dashboard" className="hover:text-purple-600 font-medium">
-            Dashboard
-          </Link>
-          <Link href="/campaigns" className="hover:text-purple-600">
+        <nav className="hidden md:flex space-x-8 text-gray-600 font-medium">
+          <Link href="/" className="hover:text-blue-600">
             Campaigns
           </Link>
-          <Link href="#" className="hover:text-purple-600">
-            Schedule
+          <Link href="#" className="hover:text-blue-600">
+          News
           </Link>
-          <Link href="#" className="hover:text-purple-600">
-            Reports
+          <Link href="#" className="hover:text-blue-600">
+          About us
           </Link>
-          <Link href="#" className="hover:text-purple-600">
-            Documents
+          <Link href="#" className="hover:text-blue-600">
+            Pmmr
           </Link>
-          <Link href="#" className="hover:text-purple-600">
-            Messages
+          <Link href="#" className="hover:text-blue-600">
+            User Login
           </Link>
         </nav>
 
-        {/* Right section for Desktop */}
+        {/* Right section */}
         <div className="flex items-center space-x-4">
           <input
             type="text"
             placeholder="Search"
-            className="hidden md:block px-3 py-1 rounded-lg border border-gray-300 text-sm"
+            className="hidden md:block px-3 py-1 border rounded-md text-sm border-gray-300"
           />
 
-          {/* Avatar or Name */}
-          <div className="bg-gray-200 text-gray-700 text-sm px-3 py-1 rounded-full">
-            Nero
+          <div className="hidden md:block text-sm font-medium text-gray-600">
+            Search
           </div>
 
-          {/* Buttons for Desktop */}
-          <div className="space-x-2 hidden md:block">
-            <Link href="/admin-login">
-              <button className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-1 rounded">
-                Sign Up
-              </button>
-            </Link>
-          </div>
+          <Link href="/admin-login">
+            <button className="hidden md:block bg-blue-600 text-white px-4 py-1 rounded-md hover:bg-blue-700">
+              Admin Page
+            </button>
+          </Link>
+
+          {/* Mobile menu button */}
+          <button onClick={toggleMenu} className="md:hidden text-gray-600 hover:text-blue-600">
+            ☰
+          </button>
         </div>
-
-        {/* Mobile Menu Button (Hamburger) */}
-        <button
-          onClick={toggleMenu}
-          className="md:hidden flex items-center space-x-2 text-gray-600 hover:text-purple-600"
-        >
-          <span className="material-icons">menu</span> {/* Material Icon for hamburger */}
-        </button>
       </div>
 
-      {/* Mobile Navigation */}
+      {/* Mobile Menu */}
       {menuOpen && (
-        <nav className="md:hidden flex flex-col items-center space-y-4 text-sm text-gray-600 mt-4">
-          <Link href="/admin/dashboard" className="hover:text-purple-600 font-medium">
-            Dashboard
-          </Link>
-          <Link href="/campaigns" className="hover:text-purple-600">
+        <nav className="md:hidden flex flex-col items-center space-y-4 text-gray-600 font-medium mt-4">
+          <Link href="/" className="hover:text-blue-600">
             Campaigns
           </Link>
-          <Link href="#" className="hover:text-purple-600">
-            Schedule
+          <Link href="#" className="hover:text-blue-600">
+            News
           </Link>
-          <Link href="#" className="hover:text-purple-600">
-            Reports
+          <Link href="#" className="hover:text-blue-600">
+          About us
           </Link>
-          <Link href="#" className="hover:text-purple-600">
-            Documents
+          <Link href="#" className="hover:text-blue-600">
+            Pmmr
           </Link>
-          <Link href="#" className="hover:text-purple-600">
-            Messages
+          <Link href="#" className="hover:text-blue-600">
+            User Login
+          </Link>
+
+          <input
+            type="text"
+            placeholder="Search"
+            className="px-3 py-1 border rounded-md text-sm border-gray-300"
+          />
+
+          <div className="text-sm font-medium text-gray-600">
+            Search
+          </div>
+
+          <Link href="/admin-login">
+            <button className="bg-blue-600 text-white px-4 py-1 rounded-md hover:bg-blue-700">
+              Admin Page
+            </button>
           </Link>
         </nav>
       )}
     </header>
-  )
+  );
 }

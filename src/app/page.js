@@ -1,11 +1,11 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { supabase } from '@/lib/supabaseClient'
-import Link from 'next/link'
+import { useEffect, useState } from 'react';
+import { supabase } from '@/lib/supabaseClient';
+import Link from 'next/link';
 
 export default function Home() {
-  const [campaigns, setCampaigns] = useState([])
+  const [campaigns, setCampaigns] = useState([]);
 
   useEffect(() => {
     const fetchCampaigns = async () => {
@@ -13,61 +13,36 @@ export default function Home() {
         .from('campaigns')
         .select('*')
         .order('start_date', { ascending: false })
-        .limit(4)
+        .limit(4);
 
-      if (error) console.error('Error:', error)
-      else setCampaigns(data)
-    }
+      if (error) console.error('Error:', error);
+      else setCampaigns(data);
+    };
 
-    fetchCampaigns()
-  }, [])
+    fetchCampaigns();
+  }, []);
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6 space-y-12">
-      {/* HEADER BAR */}
-      <div className="flex justify-between items-center mb-4">
-        <input
-          type="text"
-          placeholder="Do fundraise now"
-          className="bg-white px-4 py-2 rounded-full border border-gray-300 w-full max-w-sm shadow-sm focus:outline-none"
-        />
-   
-
-      </div>
-
-      {/* SECTION: Your Campaign */}
-      <section>
-        <h2 className="text-xl font-semibold text-gray-700 mb-4">Your Campaign (4)</h2>
-
-        <div className="bg-white rounded-2xl shadow-lg p-6 flex gap-6 items-center">
-          <div className="w-1/3 h-40 bg-gray-200 rounded-xl flex items-center justify-center">
-            {/* Ganti dengan video preview jika ada */}
-            <span className="text-gray-500">Video/Image</span>
-          </div>
-          <div className="w-2/3 space-y-2">
-            <span className="text-xs uppercase tracking-wide text-gray-500 font-medium">Architecture</span>
-            <h3 className="text-xl font-bold text-gray-800">Remake - We Make architecture exhibition</h3>
-            <p className="text-sm text-gray-600">
-              Remake - We Make: an exhibition about architecture's social agency in the face of urbanisation
-            </p>
-            <div className="w-full bg-gray-200 rounded-full h-2">
-              <div className="bg-green-500 h-2 rounded-full" style={{ width: '80%' }} />
-            </div>
-            <div className="text-sm text-gray-600 flex gap-6">
-              <span>$2000 <span className="text-gray-400">Raised of $2500</span></span>
-              <span>173 <span className="text-gray-400">Total backers</span></span>
-              <span>30 <span className="text-gray-400">Days left</span></span>
-            </div>
+    <div className="min-h-screen bg-white p-8 space-y-12 font-sans text-gray-800">
+      <section className="flex flex-col md:flex-row items-center justify-between">
+        <div className="space-y-6">
+          <h2 className="text-5xl font-bold">Altar Give<br /> Grow the community</h2>
+          <p className="text-gray-500">
+          Embrace the spirit of giving and join our vibrant community of purpose-driven individuals.  
+        At AltarGive, we connect generous hearts with impactful missions, empowering you to make a meaningful difference..
+          </p>
+          <div className="space-x-4">
+            <button className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">Explore Campaign</button>
+            <button className="border border-purple-600 text-purple-600 px-4 py-2 rounded-lg hover:bg-purple-50">About us</button>
           </div>
         </div>
       </section>
 
-      {/* SECTION: Popular Campaigns */}
       <section>
-        <h2 className="text-xl font-semibold text-gray-700 mb-4">Popular Campaign</h2>
+        <h2 className="text-2xl font-semibold mb-4">Our Campaigns Goals</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {campaigns.map((c) => (
-            <div key={c.id} className="bg-white rounded-2xl shadow-lg p-5 hover:shadow-xl transition-all duration-300">
+            <div key={c.id} className="bg-gray-50 rounded-xl shadow-lg p-5 hover:shadow-xl transition-all duration-300">
               {c.image_url ? (
                 <img
                   src={c.image_url}
@@ -80,23 +55,27 @@ export default function Home() {
                 </div>
               )}
 
-              <span className="text-xs uppercase text-gray-400">General</span>
               <h3 className="text-lg font-semibold text-gray-800">{c.title}</h3>
-              <p className="text-sm text-gray-600 mb-2">{c.description?.slice(0, 80)}...</p>
+              <p className="text-sm text-gray-500 mb-4">{c.description?.slice(0, 80)}...</p>
 
               <div className="w-full bg-gray-300 rounded-full h-2 mb-2">
                 <div
-                  className="bg-green-500 h-2 rounded-full"
+                  className="bg-purple-600 h-2 rounded-full"
                   style={{ width: `${(c.current_amount / c.target_amount) * 100}%` }}
                 />
               </div>
 
-              <p className="text-sm text-gray-700 font-medium">
-                ${c.current_amount} <span className="text-gray-400">Raised of ${c.target_amount}</span>
-              </p>
+              <div className="flex justify-between items-center">
+                <p className="text-sm text-gray-700">
+                  RM {c.current_amount} Raised
+                </p>
+                <p className="text-sm text-gray-400">
+                  RM {c.target_amount} Goal
+                </p>
+              </div>
 
               <Link href={`/campaigns/${c.id}`}>
-                <button className="mt-3 bg-purple-600 text-white px-4 py-2 rounded-xl w-full hover:bg-purple-700 transition">
+                <button className="mt-3 bg-purple-600 text-white px-4 py-2 rounded-xl w-full hover:bg-purple-700">
                   View Details
                 </button>
               </Link>
@@ -105,5 +84,5 @@ export default function Home() {
         </div>
       </section>
     </div>
-  )
+  );
 }
