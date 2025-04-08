@@ -4,13 +4,13 @@
   --background: #f8f8ff; /* Ghost White (putih cozy) */
   --foreground: #171717;
 }
-
+/* 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
+} */
 
 /* Komen atau padam terus media query dark mode supaya sentiasa putih cozy */
 /*

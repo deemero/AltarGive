@@ -38,27 +38,36 @@ export default function AdminCampaigns() {
   }
 
   return (
-    <div className="p-6 text-white">
-      <h1 className="text-2xl font-bold mb-6">📁 Admin: All Campaigns</h1>
+    <div className="p-6 bg-gray-100 min-h-screen">
+      <h1 className="text-3xl font-bold text-gray-700 mb-6">Admin: All Campaigns</h1>
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {campaigns.map((c) => (
-          <div key={c.id} className="bg-gray-900 p-4 rounded-xl space-y-2">
-            <h2 className="text-xl font-semibold">{c.title}</h2>
-            <p className="text-sm text-gray-400">{c.description}</p>
-            <p className="text-sm">📅 {c.start_date} → {c.end_date}</p>
-            <div className="text-sm">
+          <div
+            key={c.id}
+            className="bg-white shadow-lg p-6 rounded-xl space-y-4 hover:shadow-xl transition-shadow duration-300"
+          >
+            <h2 className="text-xl font-semibold text-gray-800">{c.title}</h2>
+            <p className="text-sm text-gray-500">{c.description}</p>
+
+            <div className="text-sm text-gray-600">
+              📅 {c.start_date} → {c.end_date}
+            </div>
+
+            <div className="text-gray-700 font-semibold">
               RM {c.current_amount} / RM {c.target_amount}
             </div>
-            <div className="flex gap-2">
+
+            <div className="flex gap-3">
               <Link
                 href={`/campaigns/${c.id}`}
-                className="text-blue-400 hover:underline text-sm"
+                className="text-indigo-500 hover:text-indigo-700 font-medium"
               >
                 View
               </Link>
               <button
                 onClick={() => handleDelete(c.id)}
-                className="text-red-400 hover:underline text-sm"
+                className="text-red-500 hover:text-red-700 font-medium"
               >
                 Delete
               </button>

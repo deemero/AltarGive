@@ -18,7 +18,7 @@ export default function CreateCampaign() {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    const { data, error } = await supabase.from('campaigns').insert([
+    const { error } = await supabase.from('campaigns').insert([
       {
         title,
         description,
@@ -37,73 +37,76 @@ export default function CreateCampaign() {
       setSuccess('Campaign created successfully!')
       setError('')
       setTimeout(() => {
-        router.push('/') // atau /admin/dashboard kalau mahu
+        router.push('/admin/dashboard')
       }, 1500)
     }
   }
 
   return (
-    <div className="min-h-screen p-6 text-white bg-black">
-      <h1 className="text-3xl font-bold mb-6">📢 Create New Campaign</h1>
+    <div className="min-h-screen bg-gray-100 p-6 flex justify-center items-center">
+      <div className="bg-white shadow-2xl rounded-xl p-8 w-full max-w-2xl">
+        <h1 className="text-3xl font-bold mb-6 text-gray-700">📢 Create New Campaign</h1>
 
-      {error && <p className="text-red-500 mb-4">{error}</p>}
-      {success && <p className="text-green-500 mb-4">{success}</p>}
+        {error && <p className="text-red-600 bg-red-100 p-2 rounded mb-4">{error}</p>}
+        {success && <p className="text-green-600 bg-green-100 p-2 rounded mb-4">{success}</p>}
 
-      <form onSubmit={handleSubmit} className="space-y-4 max-w-xl">
-        <input
-          type="text"
-          placeholder="Campaign Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-          className="w-full p-2 bg-gray-800 rounded"
-        />
-        <textarea
-          placeholder="Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          required
-          className="w-full p-2 bg-gray-800 rounded"
-        />
-        <input
-          type="text"
-          placeholder="Image URL"
-          value={imageUrl}
-          onChange={(e) => setImageUrl(e.target.value)}
-          className="w-full p-2 bg-gray-800 rounded"
-        />
-        <input
-          type="number"
-          placeholder="Target Amount (RM)"
-          value={targetAmount}
-          onChange={(e) => setTargetAmount(e.target.value)}
-          required
-          className="w-full p-2 bg-gray-800 rounded"
-        />
-        <div className="flex gap-4">
+        <form onSubmit={handleSubmit} className="space-y-4">
           <input
-            type="date"
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
+            type="text"
+            placeholder="Campaign Title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
             required
-            className="w-full p-2 bg-gray-800 rounded"
+            className="w-full p-3 bg-gray-100 rounded-xl placeholder-gray-500 border border-gray-200 outline-none"
+          />
+          <textarea
+            placeholder="Description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+            className="w-full p-3 bg-gray-100 rounded-xl placeholder-gray-500 border border-gray-200 outline-none resize-none"
+            rows="4"
           />
           <input
-            type="date"
-            value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
-            required
-            className="w-full p-2 bg-gray-800 rounded"
+            type="text"
+            placeholder="Image URL"
+            value={imageUrl}
+            onChange={(e) => setImageUrl(e.target.value)}
+            className="w-full p-3 bg-gray-100 rounded-xl placeholder-gray-500 border border-gray-200 outline-none"
           />
-        </div>
+          <input
+            type="number"
+            placeholder="Target Amount (RM)"
+            value={targetAmount}
+            onChange={(e) => setTargetAmount(e.target.value)}
+            required
+            className="w-full p-3 bg-gray-100 rounded-xl placeholder-gray-500 border border-gray-200 outline-none"
+          />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <input
+              type="date"
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+              required
+              className="w-full p-3 bg-gray-100 rounded-xl placeholder-gray-500 border border-gray-200 outline-none"
+            />
+            <input
+              type="date"
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
+              required
+              className="w-full p-3 bg-gray-100 rounded-xl placeholder-gray-500 border border-gray-200 outline-none"
+            />
+          </div>
 
-        <button
-          type="submit"
-          className="bg-green-600 hover:bg-green-700 px-6 py-2 rounded text-white"
-        >
-          Create Campaign
-        </button>
-      </form>
+          <button
+            type="submit"
+            className="w-full bg-purple-700 hover:bg-purple-800 text-white py-3 rounded-xl font-semibold transition duration-300"
+          >
+            Create Campaign
+          </button>
+        </form>
+      </div>
     </div>
   )
 }

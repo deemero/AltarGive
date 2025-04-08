@@ -112,46 +112,84 @@ export default function CampaignDetails() {
             >
               {showForm ? 'Close Form' : 'Donate Now'}
             </button>
-
             {showForm && (
-              <form onSubmit={handleDonate} className="space-y-4 mt-6" encType="multipart/form-data">
-                <input
-                  type="text"
-                  placeholder="Your name (optional)"
-                  className="w-full p-3 rounded-xl bg-gray-100 placeholder-gray-500 border-none"
-                  value={donorName}
-                  onChange={(e) => setDonorName(e.target.value)}
-                />
-                <input
-                  type="number"
-                  placeholder="Enter amount (e.g. 50)"
-                  className="w-full p-3 rounded-xl bg-gray-100 placeholder-gray-500 border-none"
-                  value={amount}
-                  onChange={(e) => setAmount(e.target.value)}
-                  required
-                />
-                <select
-                  className="w-full p-3 rounded-xl bg-gray-100 placeholder-gray-500 border-none"
-                  value={paymentMethod}
-                  onChange={(e) => setPaymentMethod(e.target.value)}
-                  required
-                >
-                  <option value="">Select Payment Method</option>
-                  <option value="QR Pay">QR Pay</option>
-                  <option value="FPX">FPX</option>
-                  <option value="Bank Transfer">Bank Transfer</option>
-                </select>
-                <input
-                  type="file"
-                  accept="image/*"
-                  className="w-full p-3 rounded-xl bg-gray-100 placeholder-gray-500 border-none"
-                  onChange={(e) => setProofFile(e.target.files[0])}
-                />
-                <button type="submit" className="bg-purple-600 text-white px-4 py-2 rounded-xl hover:bg-purple-700">
-                  Submit Donation
-                </button>
-                {successMsg && <p className="text-green-600 font-medium">{successMsg}</p>}
-              </form>
+              <div className="space-y-6 mt-6">
+                {/* 🆕 Section QR & Bank Info */}
+                <div className="flex flex-col items-center gap-2">
+  <img
+    src="https://fxbvoeawcqsdnoxmzzlm.supabase.co/storage/v1/object/public/qr-codes//qr%20codes.png"
+    alt="QR Code"
+    className="w-40 h-40 object-contain rounded"
+  />
+  <p className="text-center text-sm">Touch 'n Go – Avender Jerricho</p>
+
+  <div className="bg-white p-2 rounded border text-center">
+    <span className="font-semibold">Bank Acc:</span>{' '}
+    <span
+      className="cursor-pointer text-blue-600 underline"
+      onClick={() => {
+        navigator.clipboard.writeText('100553190219')
+        alert('Account number copied!')
+      }}
+    >
+      100553190219
+    </span>
+  </div>
+
+  {/* 🆕 Butang Download QR */}
+  <a
+    href="https://fxbvoeawcqsdnoxmzzlm.supabase.co/storage/v1/object/public/qr-codes//qr%20codes.png"
+    download="qr-code.png"
+    className="mt-2 text-purple-700 hover:text-purple-900 underline text-sm"
+  >
+    ⬇️ Download QR Code
+  </a>
+</div>
+
+
+                {/* Donation Form */}
+                <form onSubmit={handleDonate} className="space-y-4" encType="multipart/form-data">
+                  <input
+                    type="text"
+                    placeholder="Your name (optional)"
+                    className="w-full p-3 rounded-xl bg-gray-100 placeholder-gray-500 border-none"
+                    value={donorName}
+                    onChange={(e) => setDonorName(e.target.value)}
+                  />
+                  <input
+                    type="number"
+                    placeholder="Enter amount (e.g. 50)"
+                    className="w-full p-3 rounded-xl bg-gray-100 placeholder-gray-500 border-none"
+                    value={amount}
+                    onChange={(e) => setAmount(e.target.value)}
+                    required
+                  />
+                  <select
+                    className="w-full p-3 rounded-xl bg-gray-100 placeholder-gray-500 border-none"
+                    value={paymentMethod}
+                    onChange={(e) => setPaymentMethod(e.target.value)}
+                    required
+                  >
+                    <option value="">Select Payment Method</option>
+                    <option value="QR Pay">QR Pay</option>
+                    <option value="FPX">FPX</option>
+                    <option value="Bank Transfer">Bank Transfer</option>
+                  </select>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="w-full p-3 rounded-xl bg-gray-100 placeholder-gray-500 border-none"
+                    onChange={(e) => setProofFile(e.target.files[0])}
+                  />
+                  <button
+                    type="submit"
+                    className="bg-purple-600 text-white px-4 py-2 rounded-xl hover:bg-purple-700"
+                  >
+                    Submit Donation
+                  </button>
+                  {successMsg && <p className="text-green-600 font-medium">{successMsg}</p>}
+                </form>
+              </div>
             )}
           </div>
         </div>
