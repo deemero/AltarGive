@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 import { useParams } from 'next/navigation';
+import { v4 as uuidv4 } from 'uuid'
+
 
 export default function CampaignDetails() {
   const { id } = useParams();
@@ -43,10 +45,12 @@ export default function CampaignDetails() {
         .from('proofs')
         .upload(filePath, proofFile);
 
-      if (uploadError) {
-        console.error('Upload error:', uploadError);
-        return;
-      }
+        if (uploadError) {
+          alert('❌ Upload failed: ' + uploadError.message);
+          console.error('Upload error:', uploadError);
+          return;
+        }
+        
 
       const { data: publicUrlData } = supabase.storage
         .from('proofs')
@@ -84,11 +88,18 @@ export default function CampaignDetails() {
       <div className="bg-gray-50 p-8 rounded-3xl shadow-2xl w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           <div className="bg-white p-6 rounded-2xl shadow-md">
-            <img
-              src={campaign.image_url}
-              alt={campaign.title}
-              className="rounded-xl w-full h-72 object-cover"
-            />
+          {campaign.image_url ? (
+  <img
+    src={campaign.image_url}
+    alt={campaign.title}
+    className="rounded-xl w-full h-72 object-cover"
+  />
+) : (
+  <div className="w-full h-72 bg-gray-200 rounded-xl flex items-center justify-center text-gray-500 text-sm">
+    No image uploaded
+  </div>
+)}
+
             <h1 className="text-3xl font-bold mt-6">{campaign.title}</h1>
             <p className="text-gray-700 my-4">{campaign.description}</p>
             <div className="text-sm text-gray-500">

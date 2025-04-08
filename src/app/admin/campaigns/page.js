@@ -40,6 +40,14 @@ export default function AdminCampaigns() {
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
       <h1 className="text-3xl font-bold text-gray-700 mb-6">Admin: All Campaigns</h1>
+      <Link
+  href="/admin/dashboard"
+  className="inline-block mb-4 text-sm text-gray-600 hover:text-purple-700 underline"
+>
+  ←Dashboard
+</Link>
+
+      
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {campaigns.map((c) => (
@@ -58,12 +66,21 @@ export default function AdminCampaigns() {
               RM {c.current_amount} / RM {c.target_amount}
             </div>
 
-            <div className="flex gap-3">
+            {/* Action Buttons */}
+            <div className="flex gap-4 flex-wrap mt-4">
+
+              
               <Link
                 href={`/campaigns/${c.id}`}
                 className="text-indigo-500 hover:text-indigo-700 font-medium"
               >
                 View
+              </Link>
+              <Link
+                href={`/admin/edit-campaigns/${c.id}`}
+                className="text-yellow-500 hover:text-yellow-600 font-medium"
+              >
+                ✏️ Edit
               </Link>
               <button
                 onClick={() => handleDelete(c.id)}
@@ -71,7 +88,9 @@ export default function AdminCampaigns() {
               >
                 Delete
               </button>
+
             </div>
+            
           </div>
         ))}
       </div>

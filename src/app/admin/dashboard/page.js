@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useEffect } from 'react'
 
+
 export default function AdminDashboard() {
   useEffect(() => {
     const isAdmin = localStorage.getItem('isAdmin')
@@ -47,6 +48,15 @@ export default function AdminDashboard() {
             <p className="text-gray-500 mt-2">Start a new campaign for donations</p>
           </div>
         </Link>
+
+        <Link href="/admin/campaigns">
+    <div className="bg-white rounded-lg shadow-lg p-6 cursor-pointer hover:shadow-xl transition duration-300">
+      <h2 className="text-xl font-semibold">📄 Edit Campaigns</h2>
+      <p className="text-gray-500 mt-2">Update or remove existing campaigns</p>
+    </div>
+  </Link>
+
+
 
         <Link href="/">
           <div className="bg-white rounded-lg shadow-lg p-6 cursor-pointer hover:shadow-xl transition duration-300">

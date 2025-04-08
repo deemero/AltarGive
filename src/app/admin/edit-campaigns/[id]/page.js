@@ -1,74 +1,80 @@
 'use client'
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { useParams, useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabaseClient'
-import { v4 as uuidv4 } from 'uuid'
-import Link from 'next/link'
+import Link from 'next/link' // ✅ wajib untuk guna <Link>
 
-export default function CreateCampaign() {
+
+
+
+export default function EditCampaign() {
+  const { id } = useParams()
+  const router = useRouter()
+  const [loading, setLoading] = useState(true)
+  const [campaign, setCampaign] = useState(null)
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
-  const [imageFile, setImageFile] = useState(null)
   const [targetAmount, setTargetAmount] = useState('')
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
-  const router = useRouter()
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
+  useEffect(() => {
+    const fetchCampaign = async () => {
+      const { data, error } = await supabase
+        .from('campaigns')
+        .select('*')
+        .eq('id', id)
+        .single()
 
-    let imageUrl = ''
-
-    if (imageFile) {
-      const fileExt = imageFile.name.split('.').pop()
-      const fileName = `${uuidv4()}.${fileExt}`
-      const { data, error: uploadError } = await supabase.storage
-        .from('campaign-images')
-        .upload(fileName, imageFile)
-
-      if (uploadError) {
-        setError('Image upload failed')
-        return
+      if (error) {
+        setError('Failed to load campaign')
+        console.error(error)
+      } else {
+        setCampaign(data)
+        setTitle(data.title)
+        setDescription(data.description)
+        setTargetAmount(data.target_amount)
+        setStartDate(data.start_date)
+        setEndDate(data.end_date)
       }
-
-      const { data: publicUrlData } = supabase.storage
-        .from('campaign-images')
-        .getPublicUrl(fileName)
-
-      imageUrl = publicUrlData.publicUrl
+      setLoading(false)
     }
 
-    const { error } = await supabase.from('campaigns').insert([
-      {
-        title,
-        description,
-        image_url: imageUrl,
-        target_amount: parseFloat(targetAmount),
-        current_amount: 0,
-        start_date: startDate,
-        end_date: endDate,
-      },
-    ])
+    if (id) fetchCampaign()
+  }, [id])
+
+  const handleUpdate = async (e) => {
+    e.preventDefault()
+
+    const { error } = await supabase.from('campaigns').update({
+      title,
+      description,
+      target_amount: parseFloat(targetAmount),
+      start_date: startDate,
+      end_date: endDate,
+    }).eq('id', id)
 
     if (error) {
-      setError(error.message)
+      setError('Update failed')
       setSuccess('')
     } else {
-      setSuccess('Campaign created successfully!')
+      setSuccess('Campaign updated successfully!')
       setError('')
       setTimeout(() => {
-        router.push('/admin/dashboard')
+        router.push('/admin/campaigns')
       }, 1500)
     }
   }
 
+  if (loading) return <div className="p-6">Loading...</div>
+
   return (
     <div className="min-h-screen bg-gray-100 p-6 flex justify-center items-center">
       <div className="bg-white shadow-2xl rounded-xl p-8 w-full max-w-2xl">
-        <h1 className="text-3xl font-bold mb-6 text-gray-700">📢 Create New Campaign</h1>
+        <h1 className="text-3xl font-bold mb-6 text-gray-700">✏️ Edit Campaign</h1>
         <Link
   href="/admin/dashboard"
   className="inline-block mb-4 text-sm text-gray-600 hover:text-purple-700 underline"
@@ -79,7 +85,7 @@ export default function CreateCampaign() {
         {error && <p className="text-red-600 bg-red-100 p-2 rounded mb-4">{error}</p>}
         {success && <p className="text-green-600 bg-green-100 p-2 rounded mb-4">{success}</p>}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleUpdate} className="space-y-4">
           <input
             type="text"
             placeholder="Campaign Title"
@@ -95,12 +101,6 @@ export default function CreateCampaign() {
             required
             className="w-full p-3 bg-gray-100 rounded-xl resize-none"
             rows="4"
-          />
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => setImageFile(e.target.files[0])}
-            className="w-full p-3 bg-gray-100 rounded-xl"
           />
           <input
             type="number"
@@ -126,11 +126,12 @@ export default function CreateCampaign() {
               className="w-full p-3 bg-gray-100 rounded-xl"
             />
           </div>
+
           <button
             type="submit"
-            className="w-full bg-purple-700 hover:bg-purple-800 text-white py-3 rounded-xl font-semibold"
+            className="w-full bg-yellow-500 hover:bg-yellow-600 text-white py-3 rounded-xl font-semibold"
           >
-            Create Campaign
+            Update Campaign
           </button>
         </form>
       </div>

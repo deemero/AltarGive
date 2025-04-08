@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabaseClient'
+import Link from 'next/link'
+
 
 export default function AdminDonations() {
   const [donations, setDonations] = useState([])
@@ -82,12 +84,13 @@ export default function AdminDonations() {
     <div className="p-6 bg-gray-100 min-h-screen">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-3xl font-bold text-gray-700">📋 Admin: All Donations</h1>
-        <button
-          onClick={handleLogout}
-          className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
-        >
-          Logout
-        </button>
+ 
+        <Link
+  href="/admin/dashboard"
+  className="inline-block mb-4 text-sm text-gray-600 hover:text-purple-700 underline"
+>
+  ←Dashboard
+</Link>
       </div>
 
       {donations.length === 0 ? (
@@ -135,6 +138,8 @@ export default function AdminDonations() {
                 >
                   ❌ Reject
                 </button>
+ 
+                
               </div>
             </div>
           ))}
