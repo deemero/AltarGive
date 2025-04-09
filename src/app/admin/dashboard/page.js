@@ -55,7 +55,13 @@ export default function AdminDashboard() {
       <p className="text-gray-500 mt-2">Update or remove existing campaigns</p>
     </div>
   </Link>
-
+  
+  <Link href="/admin/payments">
+          <div className="bg-white rounded-lg shadow-lg p-6 cursor-pointer hover:shadow-xl transition duration-300">
+            <h2 className="text-xl font-semibold">Pmmr Payments</h2>
+            <p className="text-gray-500 mt-2">Pemabayran Pmmr punya Registraion</p>
+          </div>
+        </Link>
 
 
         <Link href="/">
