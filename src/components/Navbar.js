@@ -77,7 +77,7 @@ export default function Navbar() {
           <Link href="#" className="hover:text-blue-600">
             Pmmr
           </Link>
-          <Link href="#" className="hover:text-blue-600">
+          <Link href="/login" className="hover:text-blue-600">
             User Login
           </Link>
 
