@@ -75,12 +75,7 @@ export default function EditCampaign() {
     <div className="min-h-screen bg-gray-100 p-6 flex justify-center items-center">
       <div className="bg-white shadow-2xl rounded-xl p-8 w-full max-w-2xl">
         <h1 className="text-3xl font-bold mb-6 text-gray-700">✏️ Edit Campaign</h1>
-        <Link
-  href="/admin/dashboard"
-  className="inline-block mb-4 text-sm text-gray-600 hover:text-purple-700 underline"
->
-  ←Dashboard
-</Link>
+    
 
         {error && <p className="text-red-600 bg-red-100 p-2 rounded mb-4">{error}</p>}
         {success && <p className="text-green-600 bg-green-100 p-2 rounded mb-4">{success}</p>}

@@ -21,7 +21,7 @@ export default function AdminLayout({ children }) {
     { name: 'Dashboard', href: '/admin/dashboard' },
     { name: 'Donations', href: '/admin/donations' },
     { name: 'Campaigns', href: '/admin/campaigns' },
-    { name: 'Create', href: '/campaigns-create' },
+    { name: 'Create', href: '/admin/campaigns-create' },
     { name: 'Payments', href: '/admin/payments' },
     { name: 'Logout', href: '/', action: () => localStorage.removeItem('isAdmin') },
   ]
@@ -75,7 +75,7 @@ export default function AdminLayout({ children }) {
                 }}
                 className="block w-full text-left px-4 py-2 rounded hover:bg-white hover:text-purple-700 font-medium transition"
               >
-                🚪 {item.name}
+               ↪ {item.name}
               </button>
             ) : (
               <Link
