@@ -21,7 +21,11 @@ export default function AdminLayout({ children }) {
     { name: 'Dashboard', href: '/admin/dashboard' },
     { name: 'Donations', href: '/admin/donations' },
     { name: 'Campaigns', href: '/admin/campaigns' },
-    { name: 'Create', href: '/admin/campaigns-create' },
+    
+    { name: 'Create Campaigns', href: '/admin/campaigns-create' },
+    { name: 'Create Event', href: '/admin/create-event' },
+    // { name: 'Edit Event', href: '/admin/edit-event' },
+    { name: 'Event Overviews', href: '/admin/events' },
     { name: 'Payments', href: '/admin/payments' },
     { name: 'Logout', href: '/', action: () => localStorage.removeItem('isAdmin') },
   ]

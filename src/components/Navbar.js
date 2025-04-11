@@ -23,8 +23,8 @@ export default function Navbar() {
           <Link href="/" className="hover:text-blue-600">
             Campaigns
           </Link>
-          <Link href="#" className="hover:text-blue-600">
-          News
+          <Link href="/events" className="hover:text-blue-600">
+          Event
           </Link>
           <Link href="#" className="hover:text-blue-600">
           About us
@@ -68,8 +68,8 @@ export default function Navbar() {
           <Link href="/" className="hover:text-blue-600">
             Campaigns
           </Link>
-          <Link href="#" className="hover:text-blue-600">
-            News
+          <Link href="/events" className="hover:text-blue-600">
+            Event
           </Link>
           <Link href="#" className="hover:text-blue-600">
           About us
