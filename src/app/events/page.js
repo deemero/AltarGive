@@ -8,6 +8,7 @@ export default function EventsPage() {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedLocation, setSelectedLocation] = useState('All');
   const [selectedDate, setSelectedDate] = useState('');
+  const [expandedId, setExpandedId] = useState(null);
 
   useEffect(() => {
     fetchEvents();
@@ -114,7 +115,17 @@ export default function EventsPage() {
                   <div className="text-xs bg-gray-100 text-gray-700 inline-block px-2 py-0.5 rounded-full font-medium mb-2">
                     {event.category}
                   </div>
-                  <p className="text-sm text-gray-700 line-clamp-3">{event.description}</p>
+                  <p className="text-sm text-gray-700">
+                    {expandedId === event.id ? event.description : `${event.description.slice(0, 120)}...`}
+                    {event.description.length > 120 && (
+                      <button
+                        onClick={() => setExpandedId(expandedId === event.id ? null : event.id)}
+                        className="text-blue-600 text-xs ml-2 hover:underline"
+                      >
+                        {expandedId === event.id ? 'Lihat Ringkas' : 'Lihat Lagi'}
+                      </button>
+                    )}
+                  </p>
                 </div>
               </div>
             ))}

@@ -26,7 +26,7 @@ export default function Navbar() {
           <Link href="/events" className="hover:text-blue-600">
           Event
           </Link>
-          <Link href="#" className="hover:text-blue-600">
+          <Link href="about-us" className="hover:text-blue-600">
           About us
           </Link>
           <Link href="#" className="hover:text-blue-600">
@@ -71,7 +71,7 @@ export default function Navbar() {
           <Link href="/events" className="hover:text-blue-600">
             Event
           </Link>
-          <Link href="#" className="hover:text-blue-600">
+          <Link href="/about-us" className="hover:text-blue-600">
           About us
           </Link>
           <Link href="#" className="hover:text-blue-600">
