@@ -109,7 +109,8 @@ export default function AdminPaymentsPage() {
                     <td className="px-4 py-2">
                       {pay.receipt_url ? (
                         <a
-                          href={`https://YOUR_PROJECT_ID.supabase.co/storage/v1/object/public/receipts/${pay.receipt_url}`}
+                        href={`https://fxbvoeawcqsdnoxmzzlm.supabase.co/storage/v1/object/public/receipts/${pay.receipt_url}`}
+
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-blue-600 underline"
@@ -154,7 +155,8 @@ export default function AdminPaymentsPage() {
                   Resit:{' '}
                   {pay.receipt_url ? (
                     <a
-                      href={`https://YOUR_PROJECT_ID.supabase.co/storage/v1/object/public/receipts/${pay.receipt_url}`}
+                    href={`https://fxbvoeawcqsdnoxmzzlm.supabase.co/storage/v1/object/public/receipts/${pay.receipt_url}`}
+
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 underline"

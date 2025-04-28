@@ -51,7 +51,7 @@ export default function PaymentPage() {
       return
     }
 
-    console.log('user.id:', user.id) // ✅ log untuk debug
+    console.log('user.id:', user.id)
 
     const { error } = await supabase.from('payments').insert([
       {
@@ -86,7 +86,7 @@ export default function PaymentPage() {
         </button>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-6">
         <div>
           <label className="block font-medium mb-1">Pilih Bulan</label>
           <select
@@ -111,18 +111,23 @@ export default function PaymentPage() {
         </div>
 
         {/* Manual Transfer QR */}
-        <div>
-          <label className="block font-medium mb-2">Bayar ke akaun berikut:</label>
-          <div className="bg-gray-100 p-4 rounded text-center">
-            <p className="font-bold text-lg">PMMR SABAH</p>
-            <p>Bank: CIMB</p>
-            <p>No. Akaun: 1234 5678 9012</p>
-            <img
-              src="/qr-cimb.png"
-              alt="QR Code"
-              className="mx-auto mt-3 w-40 h-40 object-contain border rounded"
-            />
-          </div>
+        <div className="bg-gray-100 p-6 rounded text-center flex flex-col items-center space-y-2">
+          <p className="font-bold text-lg">PMMR SABAH</p>
+          <p>Bank: Touch 'n Go</p>
+          <p>Avender Jerricho</p>
+          <p>No. Akaun: 100553190219</p>
+          <a
+            href="https://fxbvoeawcqsdnoxmzzlm.supabase.co/storage/v1/object/public/qr-codes//qr%20codes.png"
+            download="qr-code.png"
+            className="mt-2 text-purple-700 hover:text-purple-900 underline text-sm"
+          >
+            ⬇️ Download QR Code
+          </a>
+          <img
+            src="https://fxbvoeawcqsdnoxmzzlm.supabase.co/storage/v1/object/public/qr-codes//qr%20codes.png"
+            alt="QR Code"
+            className="w-40 h-40 object-contain rounded mx-auto"
+          />
         </div>
 
         {/* Placeholder for Third-Party Gateway */}
